@@ -9,7 +9,7 @@ const addNewTask = (taskText) => {
         const taskObject = {
             description: taskText.trim(),
             done: false
-        }
+        };
         tasksArray.push(taskObject);
     }
 };
@@ -40,8 +40,8 @@ const tasksRender = () => {
     taskElementsArray.forEach((taskElement, taskIndex) => {
         const taskRemoveButton = taskElement.querySelector(".js-taskRemove");
         const taskDoneButton = taskElement.querySelector(".js-taskDone");
-        taskRemoveButton.addEventListener("click", removeTask.bind(null, taskIndex))
-        taskDoneButton.addEventListener("click", toggleTaskDone.bind(null, taskIndex))
+        taskRemoveButton.addEventListener("click", removeTask.bind(null, taskIndex));
+        taskDoneButton.addEventListener("click", toggleTaskDone.bind(null, taskIndex));
     })
 }
 

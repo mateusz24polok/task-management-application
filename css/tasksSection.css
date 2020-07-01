@@ -1,0 +1,46 @@
+.tasksSection {
+    background-color: white;
+}
+
+.tasksSection__title {
+    font-size: 22px;
+    border-bottom: 1px solid var(--appGrayColor);
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.tasksSection__list {
+    list-style: none;
+    padding: 10px 20px;
+    margin: 0;
+}
+
+.tasksSection__listItem {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--appGrayColor)
+}
+
+.tasksSection__listItemButton {
+    flex-basis: 30px;
+    flex-shrink: 0;
+    height: 30px;
+    padding: 3px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.tasksSection__listItemButton--delete {
+    background-color: red;
+    font-weight: 700;
+}
+
+.tasksSection__listItemButton--done {
+    background-color: green;
+}
+
+.tasksSection__listItemText {
+    flex-grow: 1;
+    margin: 20px 10px;
+}

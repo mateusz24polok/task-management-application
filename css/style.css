@@ -1,0 +1,16 @@
+:root{
+    --appGrayColor: rgb(250,250,250);
+}
+
+html{
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+*, ::after, ::before{
+    box-sizing: inherit;
+}
+
+body{
+    background-color: var(--appGrayColor);
+}

@@ -14,16 +14,34 @@ const addNewTask = (taskText) => {
     }
 };
 
+const deleteTask = (taskIndex) => {
+    tasksArray.splice(taskIndex, 1);
+    tasksRender();
+}
+
+const doneTask = (taskIndex) => {
+    tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
+    tasksRender();
+}
+
 const tasksRender = () => {
     tasksListElement.innerHTML = "";
     tasksArray.forEach(taskObject => {
         const taskElementHtml = `
-        <li class="tasksSection__listItem">
-            <button class="tasksSection__listItemButton tasksSection__listItemButton--done"></button>
-            <p class="tasksSection__listItemText">${taskObject.description}</p>
-            <button class="tasksSection__listItemButton tasksSection__listItemButton--delete">🗑</button>
+        <li class="tasksSection__listItem js-taskElement">
+            <button class="tasksSection__listItemButton tasksSection__listItemButton--done js-taskDone"></button>
+            <p class="tasksSection__listItemText" style="text-decoration:${taskObject.done ? "line-through" : ""} ">${taskObject.description}</p>
+            <button class="tasksSection__listItemButton tasksSection__listItemButton--delete js-taskDelete">🗑</button>
         </li>`;
         tasksListElement.insertAdjacentHTML("beforeend", taskElementHtml);
+    })
+
+    const taskElementsArray = document.querySelectorAll(".js-taskElement");
+    taskElementsArray.forEach((taskElement, taskIndex) => {
+        const taskDeleteButton = taskElement.querySelector(".js-taskDelete");
+        const taskDoneButton = taskElement.querySelector(".js-taskDone");
+        taskDeleteButton.addEventListener("click", deleteTask.bind(null, taskIndex))
+        taskDoneButton.addEventListener("click", doneTask.bind(null, taskIndex))
     })
 }
 

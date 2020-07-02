@@ -8,11 +8,16 @@ https://mateusz24polok.github.io/task-management-application/
 
 # Instructions how to use
 1. Add tasks to list
-![SampleGIF](images/CurrencyConverter_Sample.gif)
+
+![taskAddingGIF](images/sampleTasksAdding.gif)
+
 2. When you are ready mark task as a done
-![SampleGIF](images/CurrencyConverter_Sample.gif)
+
+![SampleGIF](images/sampleTasksMarking.gif)
+
 3. Finally you can clean done tasks
-![SampleGIF](images/CurrencyConverter_Sample.gif)
+
+![SampleGIF](images/sampleTasksRemoving.gif)
 
 
 # Technologies used in project:

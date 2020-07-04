@@ -1,13 +1,11 @@
 .tasksSection {
     display: grid;
-    grid-template-areas: 
-    "title button--hide button--toggleDone" 
-    "list list list";
+    grid-template-areas: "title button--hide button--toggleDone" "list list list";
     grid-template-columns: 1fr auto auto;
     grid-gap: 20px;
-    align-items:center;
+    align-items: center;
     background-color: white;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 .tasksSection__title {
@@ -19,23 +17,23 @@
 }
 
 .tasksSection__button {
-    background-color:transparent;
+    background-color: transparent;
     color: teal;
-    border:none;
-    cursor:pointer;
+    border: none;
+    cursor: pointer;
 }
 
 .tasksSection__button:hover {
-    color:#009999;
+    color: #009999;
 }
 
-.tasksSection__button--hide{
+.tasksSection__button--hide {
     grid-area: button--hide;
 }
 
-.tasksSection__button--toggleDone{
+.tasksSection__button--toggleDone {
     grid-area: button--toggleDone;
-    margin-right:15px;
+    margin-right: 15px;
 }
 
 .tasksSection__list {
@@ -82,4 +80,18 @@
 .tasksSection__listItemText {
     flex-grow: 1;
     margin: 20px 10px;
+}
+
+@media (max-width:515px) and (orientation:portrait) {
+    .tasksSection__title {
+        text-align: center;
+    }
+
+    .tasksSection {
+        grid-template-areas: "title" "button--hide" "button--toggleDone" "list";
+        grid-template-columns: 1fr;
+    }
+    .tasksSection__button--toggleDone {
+        margin: 0;
+    }
 }

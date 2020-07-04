@@ -36,7 +36,11 @@
     transform: scale(1.1);
 }
 
-@media (max-width:500px) and (orientation:portrait) {
+@media (max-width:515px) and (orientation:portrait) {
+    .newTaskSection__title {
+        text-align: center;
+    }
+
     .newTaskSection__form {
         flex-wrap: wrap;
     }

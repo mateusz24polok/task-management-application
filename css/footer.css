@@ -6,7 +6,7 @@
     color: white;
 }
 
-@media (max-width:500px) and (orientation:portrait) {
+@media (max-width:515px) and (orientation:portrait) {
     .footer {
         font-size: 14px;
         padding: 10px;

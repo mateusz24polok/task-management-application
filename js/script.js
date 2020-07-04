@@ -2,20 +2,26 @@ const tasksFormElement = document.querySelector(".js-form");
 const taskInputElement = document.querySelector(".js-taskInput");
 const addNewTaskButtonElement = document.querySelector(".js-addTaskButton");
 const tasksSectionElement = document.querySelector(".js-tasksSection");
-const tasksArray = [];
+let tasksArray = [];
+let isDoneTasksHidden = false;
 
 const addNewTask = (taskText) => {
     if (taskText.trim()) {
-        const taskObject = {
+        tasksArray = [...tasksArray,
+        {
             description: taskText.trim(),
             done: false
-        };
-        tasksArray.push(taskObject);
+        }];
+    }
+    if (!isDoneTasksHidden) {
+        tasksSectionRender();
+    } else if (isDoneTasksHidden) {
+        hideDoneTasks();
     }
 };
 
 const removeTask = (taskIndex) => {
-    tasksArray.splice(taskIndex, 1);
+    tasksArray = [...tasksArray.slice(0, taskIndex), ...tasksArray.slice(taskIndex + 1)]
     tasksSectionRender();
 };
 
@@ -28,8 +34,36 @@ const toggleAllTasksDone = () => {
     tasksArray.map((task) => {
         task.done = true;
     })
-    tasksListRender();
+    if (!isDoneTasksHidden) {
+        tasksListRender(tasksArray);
+    } else if (isDoneTasksHidden){
+        hideDoneTasks();
+    }
 };
+
+const hideDoneTasks = () => {
+    isDoneTasksHidden = true;
+    const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
+    hideDoneTasksButton.textContent = "Pokaż ukończone";
+    const undoneTasks = tasksArray.filter(task => !task.done);
+    tasksListRender(undoneTasks);
+}
+
+const showDoneTasks = () => {
+    isDoneTasksHidden = false;
+    const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
+    hideDoneTasksButton.textContent = "Ukryj ukończone";
+    tasksListRender(tasksArray);
+}
+
+const handleHideDoneTasksButton = () => {
+    if (!isDoneTasksHidden) {
+        hideDoneTasks();
+    } else {
+        showDoneTasks();
+    }
+
+}
 
 const tasksPanelRender = () => {
     if (tasksArray.length) {
@@ -42,14 +76,16 @@ const tasksPanelRender = () => {
         <ul class="tasksSection__list js-tasksList"></ul>`;
     };
 
-    const toggleAllTasksDoneButton = document.querySelector(".js-toggleAllTasks")
-    toggleAllTasksDoneButton.addEventListener("click", toggleAllTasksDone);
+    const toggleAllTasksDoneButton = document.querySelector(".js-toggleAllTasks");
+    const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
+    if (toggleAllTasksDoneButton) { toggleAllTasksDoneButton.addEventListener("click", toggleAllTasksDone); }
+    if (hideDoneTasksButton) { hideDoneTasksButton.addEventListener("click", handleHideDoneTasksButton); }
 }
 
-const tasksListRender = () => {
+const tasksListRender = (list) => {
     const tasksListElement = document.querySelector(".js-tasksList");
     tasksListElement.innerHTML = "";
-    tasksArray.forEach(taskObject => {
+    list.forEach(taskObject => {
         const taskElementHtml = `
         <li class="tasksSection__listItem js-taskElement">
             <button class="tasksSection__listItemButton tasksSection__listItemButton--done js-taskDone">${taskObject.done ? "✔" : ""}</button>
@@ -70,7 +106,7 @@ const tasksListRender = () => {
 
 const tasksSectionRender = () => {
     tasksPanelRender();
-    tasksListRender();
+    tasksListRender(tasksArray);
 }
 
 const clearTaskInput = () => {
@@ -81,7 +117,6 @@ const clearTaskInput = () => {
 const handleTasksFormSubmit = (event) => {
     event.preventDefault();
     addNewTask(taskInputElement.value);
-    tasksSectionRender();
     clearTaskInput();
 }
 

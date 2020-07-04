@@ -15,7 +15,7 @@ const addNewTask = (taskText) => {
     }
     if (!isDoneTasksHidden) {
         tasksSectionRender();
-    } else if (isDoneTasksHidden) {
+    } else {
         hideDoneTasks();
     }
 };
@@ -36,7 +36,7 @@ const toggleAllTasksDone = () => {
     })
     if (!isDoneTasksHidden) {
         tasksListRender(tasksArray);
-    } else if (isDoneTasksHidden) {
+    } else {
         hideDoneTasks();
     }
 };
@@ -74,6 +74,17 @@ const bindTaskButtons = () => {
     });
 }
 
+const bindPanelButtons = () => {
+    const toggleAllTasksDoneButton = document.querySelector(".js-toggleAllTasks");
+    const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
+    if (toggleAllTasksDoneButton) {
+        toggleAllTasksDoneButton.addEventListener("click", toggleAllTasksDone);
+    };
+    if (hideDoneTasksButton) {
+        hideDoneTasksButton.addEventListener("click", handleHideDoneTasksButton);
+    };
+}
+
 const tasksPanelRender = () => {
     if (tasksArray.length) {
         tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
@@ -85,10 +96,8 @@ const tasksPanelRender = () => {
         <ul class="tasksSection__list js-tasksList"></ul>`;
     };
 
-    const toggleAllTasksDoneButton = document.querySelector(".js-toggleAllTasks");
-    const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
-    if (toggleAllTasksDoneButton) { toggleAllTasksDoneButton.addEventListener("click", toggleAllTasksDone); }
-    if (hideDoneTasksButton) { hideDoneTasksButton.addEventListener("click", handleHideDoneTasksButton); }
+    bindPanelButtons();
+
 }
 
 const tasksListRender = (list) => {

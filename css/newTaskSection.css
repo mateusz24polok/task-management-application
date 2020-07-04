@@ -28,11 +28,12 @@
     border: none;
     margin-left: 10px;
     cursor: pointer;
-    transition: background-color 0.2s ease-in;
+    transition: background-color 0.2s ease-in, transform 0.15s ease;
 }
 
 .newTaskSection__button:hover{
     background-color: #009999;
+    transform: scale(1.1);
 }
 
 @media (max-width:500px) and (orientation:portrait) {

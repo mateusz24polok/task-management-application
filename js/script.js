@@ -17,26 +17,36 @@ const addNewTask = (taskText) => {
 const removeTask = (taskIndex) => {
     tasksArray.splice(taskIndex, 1);
     tasksSectionRender();
-}
+};
 
 const toggleTaskDone = (taskIndex) => {
     tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
     tasksSectionRender();
-}
+};
 
-const tasksPanelRender = ()=>{
+const toggleAllTasksDone = () => {
+    tasksArray.map((task) => {
+        task.done = true;
+    })
+    tasksListRender();
+};
+
+const tasksPanelRender = () => {
     if (tasksArray.length) {
         tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
-        <button class="tasksSection__button tasksSection__button--hide">Ukryj ukończone</button>
-        <button class="tasksSection__button tasksSection__button--toggleDone">Ukończ wszystkie</button>
+        <button class="tasksSection__button tasksSection__button--hide js-hideDoneTasks">Ukryj ukończone</button>
+        <button class="tasksSection__button tasksSection__button--toggleDone js-toggleAllTasks">Ukończ wszystkie</button>
         <ul class="tasksSection__list js-tasksList"></ul>`;
     } else {
         tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
         <ul class="tasksSection__list js-tasksList"></ul>`;
     };
+
+    const toggleAllTasksDoneButton = document.querySelector(".js-toggleAllTasks")
+    toggleAllTasksDoneButton.addEventListener("click", toggleAllTasksDone);
 }
 
-const tasksListRender = ()=>{
+const tasksListRender = () => {
     const tasksListElement = document.querySelector(".js-tasksList");
     tasksListElement.innerHTML = "";
     tasksArray.forEach(taskObject => {

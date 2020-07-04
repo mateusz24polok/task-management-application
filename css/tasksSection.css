@@ -59,6 +59,7 @@
     border: none;
     cursor: pointer;
     color: white;
+    transition: background-color 0.15s;
 }
 
 .tasksSection__listItemButton--delete {
@@ -68,6 +69,14 @@
 
 .tasksSection__listItemButton--done {
     background-color: green;
+}
+
+.tasksSection__listItemButton--delete:hover {
+    background-color: hsl(0, 100%, 65%);
+}
+
+.tasksSection__listItemButton--done:hover {
+    background-color: hsl(120, 100%, 30%);
 }
 
 .tasksSection__listItemText {

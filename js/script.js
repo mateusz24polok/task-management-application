@@ -1,7 +1,7 @@
 const tasksFormElement = document.querySelector(".js-form");
 const taskInputElement = document.querySelector(".js-taskInput");
 const addNewTaskButtonElement = document.querySelector(".js-addTaskButton");
-const tasksListElement = document.querySelector(".js-tasksList");
+const tasksSectionElement = document.querySelector(".js-tasksSection");
 const tasksArray = [];
 
 const addNewTask = (taskText) => {
@@ -16,15 +16,28 @@ const addNewTask = (taskText) => {
 
 const removeTask = (taskIndex) => {
     tasksArray.splice(taskIndex, 1);
-    tasksRender();
+    tasksSectionRender();
 }
 
 const toggleTaskDone = (taskIndex) => {
     tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
-    tasksRender();
+    tasksSectionRender();
 }
 
-const tasksRender = () => {
+const tasksPanelRender = ()=>{
+    if (tasksArray.length) {
+        tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
+        <button class="tasksSection__button tasksSection__button--hide">Ukryj ukończone</button>
+        <button class="tasksSection__button tasksSection__button--toggleDone">Ukończ wszystkie</button>
+        <ul class="tasksSection__list js-tasksList"></ul>`;
+    } else {
+        tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
+        <ul class="tasksSection__list js-tasksList"></ul>`;
+    };
+}
+
+const tasksListRender = ()=>{
+    const tasksListElement = document.querySelector(".js-tasksList");
     tasksListElement.innerHTML = "";
     tasksArray.forEach(taskObject => {
         const taskElementHtml = `
@@ -45,6 +58,11 @@ const tasksRender = () => {
     })
 }
 
+const tasksSectionRender = () => {
+    tasksPanelRender();
+    tasksListRender();
+}
+
 const clearTaskInput = () => {
     taskInputElement.value = "";
     taskInputElement.focus();
@@ -53,7 +71,7 @@ const clearTaskInput = () => {
 const handleTasksFormSubmit = (event) => {
     event.preventDefault();
     addNewTask(taskInputElement.value);
-    tasksRender();
+    tasksSectionRender();
     clearTaskInput();
 }
 

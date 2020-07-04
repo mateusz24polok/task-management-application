@@ -36,7 +36,7 @@ const toggleAllTasksDone = () => {
     })
     if (!isDoneTasksHidden) {
         tasksListRender(tasksArray);
-    } else if (isDoneTasksHidden){
+    } else if (isDoneTasksHidden) {
         hideDoneTasks();
     }
 };
@@ -62,7 +62,16 @@ const handleHideDoneTasksButton = () => {
     } else {
         showDoneTasks();
     }
+}
 
+const bindTaskButtons = () => {
+    const taskElementsArray = document.querySelectorAll(".js-taskElement");
+    taskElementsArray.forEach((taskElement, taskIndex) => {
+        const taskRemoveButton = taskElement.querySelector(".js-taskRemove");
+        const taskDoneButton = taskElement.querySelector(".js-taskDone");
+        taskRemoveButton.addEventListener("click", removeTask.bind(null, taskIndex));
+        taskDoneButton.addEventListener("click", toggleTaskDone.bind(null, taskIndex));
+    });
 }
 
 const tasksPanelRender = () => {
@@ -95,13 +104,7 @@ const tasksListRender = (list) => {
         tasksListElement.insertAdjacentHTML("beforeend", taskElementHtml);
     })
 
-    const taskElementsArray = document.querySelectorAll(".js-taskElement");
-    taskElementsArray.forEach((taskElement, taskIndex) => {
-        const taskRemoveButton = taskElement.querySelector(".js-taskRemove");
-        const taskDoneButton = taskElement.querySelector(".js-taskDone");
-        taskRemoveButton.addEventListener("click", removeTask.bind(null, taskIndex));
-        taskDoneButton.addEventListener("click", toggleTaskDone.bind(null, taskIndex));
-    })
+    bindTaskButtons();
 }
 
 const tasksSectionRender = () => {

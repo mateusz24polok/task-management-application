@@ -36,6 +36,15 @@
     margin-right: 15px;
 }
 
+.tasksSection__button--disabled{
+    color: gray;
+    cursor: default;
+}
+
+.tasksSection__button--disabled:hover{
+    color: gray;
+}
+
 .tasksSection__list {
     list-style: none;
     padding: 10px 20px;
@@ -80,6 +89,10 @@
 .tasksSection__listItemText {
     flex-grow: 1;
     margin: 20px 10px;
+}
+
+.tasksSection__listItemText--done {
+    text-decoration: line-through;
 }
 
 @media (max-width:515px) and (orientation:portrait) {

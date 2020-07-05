@@ -85,6 +85,19 @@ const bindPanelButtons = () => {
     };
 }
 
+const disabledAllTaskToggleButton = (isAllTaskDone) => {
+    const toggleAllTasksDoneButton = document.querySelector(".js-toggleAllTasks");
+    if (isAllTaskDone) {
+        toggleAllTasksDoneButton.setAttribute("disabled", "");
+        toggleAllTasksDoneButton.classList.add("tasksSection__button--disabled");
+    } 
+}
+
+const checkAllTaskDone = () => {
+    const isAllTaskDone = tasksArray.every(task => task.done);
+    disabledAllTaskToggleButton(isAllTaskDone);
+}
+
 const tasksPanelRender = () => {
     if (tasksArray.length) {
         tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
@@ -97,6 +110,7 @@ const tasksPanelRender = () => {
     };
 
     bindPanelButtons();
+    checkAllTaskDone();
 
 }
 
@@ -107,13 +121,14 @@ const tasksListRender = (list) => {
         const taskElementHtml = `
         <li class="tasksSection__listItem js-taskElement">
             <button class="tasksSection__listItemButton tasksSection__listItemButton--done js-taskDone">${taskObject.done ? "✔" : ""}</button>
-            <p class="tasksSection__listItemText" style="text-decoration:${taskObject.done ? "line-through" : ""} ">${taskObject.description}</p>
+            <p class="tasksSection__listItemText ${taskObject.done ? "tasksSection__listItemText--done" : ""}">${taskObject.description}</p>
             <button class="tasksSection__listItemButton tasksSection__listItemButton--delete js-taskRemove">🗑</button>
         </li>`;
         tasksListElement.insertAdjacentHTML("beforeend", taskElementHtml);
     })
 
     bindTaskButtons();
+    checkAllTaskDone();
 }
 
 const tasksSectionRender = () => {

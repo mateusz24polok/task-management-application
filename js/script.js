@@ -13,11 +13,7 @@ const addNewTask = (taskText) => {
             done: false
         }];
     }
-    if (!isDoneTasksHidden) {
-        tasksSectionRender();
-    } else {
-        hideDoneTasks();
-    }
+    tasksSectionRender();
 };
 
 const removeTask = (taskIndex) => {
@@ -33,27 +29,22 @@ const toggleTaskDone = (taskIndex) => {
 const toggleAllTasksDone = () => {
     tasksArray.map((task) => {
         task.done = true;
-    })
-    if (!isDoneTasksHidden) {
-        tasksListRender(tasksArray);
-    } else {
-        hideDoneTasks();
-    }
+    });
+    tasksSectionRender();
 };
 
 const hideDoneTasks = () => {
     isDoneTasksHidden = true;
     const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
     hideDoneTasksButton.textContent = "Pokaż ukończone";
-    const undoneTasks = tasksArray.filter(task => !task.done);
-    tasksListRender(undoneTasks);
+    tasksSectionRender();
 }
 
 const showDoneTasks = () => {
     isDoneTasksHidden = false;
     const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
     hideDoneTasksButton.textContent = "Ukryj ukończone";
-    tasksListRender(tasksArray);
+    tasksSectionRender();
 }
 
 const handleHideDoneTasksButton = () => {
@@ -90,18 +81,18 @@ const disabledAllTaskToggleButton = (isAllTaskDone) => {
     if (isAllTaskDone) {
         toggleAllTasksDoneButton.setAttribute("disabled", "");
         toggleAllTasksDoneButton.classList.add("tasksSection__button--disabled");
-    } 
+    }
 }
 
 const checkAllTaskDone = () => {
-    const isAllTaskDone = tasksArray.every(task => task.done);
+    const isAllTaskDone = tasksArray.every(({done}) => done);
     disabledAllTaskToggleButton(isAllTaskDone);
 }
 
 const tasksPanelRender = () => {
     if (tasksArray.length) {
         tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
-        <button class="tasksSection__button tasksSection__button--hide js-hideDoneTasks">Ukryj ukończone</button>
+        <button class="tasksSection__button tasksSection__button--hide js-hideDoneTasks">${isDoneTasksHidden ? "Pokaż ukończone" : "Ukryj ukończone"}</button>
         <button class="tasksSection__button tasksSection__button--toggleDone js-toggleAllTasks">Ukończ wszystkie</button>
         <ul class="tasksSection__list js-tasksList"></ul>`;
     } else {
@@ -111,7 +102,6 @@ const tasksPanelRender = () => {
 
     bindPanelButtons();
     checkAllTaskDone();
-
 }
 
 const tasksListRender = (list) => {
@@ -119,7 +109,7 @@ const tasksListRender = (list) => {
     tasksListElement.innerHTML = "";
     list.forEach(taskObject => {
         const taskElementHtml = `
-        <li class="tasksSection__listItem js-taskElement">
+        <li class="tasksSection__listItem ${isDoneTasksHidden && taskObject.done ? "tasksSection__listItem--hidden" : ""} js-taskElement">
             <button class="tasksSection__listItemButton tasksSection__listItemButton--done js-taskDone">${taskObject.done ? "✔" : ""}</button>
             <p class="tasksSection__listItemText ${taskObject.done ? "tasksSection__listItemText--done" : ""}">${taskObject.description}</p>
             <button class="tasksSection__listItemButton tasksSection__listItemButton--delete js-taskRemove">🗑</button>
@@ -128,7 +118,6 @@ const tasksListRender = (list) => {
     })
 
     bindTaskButtons();
-    checkAllTaskDone();
 }
 
 const tasksSectionRender = () => {

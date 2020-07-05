@@ -58,6 +58,10 @@
     border-bottom: 1px solid var(--appGrayColor)
 }
 
+.tasksSection__listItem--hidden{
+    display:none;
+}
+
 .tasksSection__listItemButton {
     flex-basis: 30px;
     flex-shrink: 0;

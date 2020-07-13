@@ -69,24 +69,11 @@ const bindPanelButtons = () => {
     };
 }
 
-const disabledAllTaskToggleButton = (isAllTaskDone) => {
-    const toggleAllTasksDoneButton = document.querySelector(".js-toggleAllTasks");
-    if (isAllTaskDone) {
-        toggleAllTasksDoneButton.setAttribute("disabled", "");
-        toggleAllTasksDoneButton.classList.add("tasksSection__button--disabled");
-    }
-}
-
-const checkAllTaskDone = () => {
-    const isAllTaskDone = tasksArray.every(({ done }) => done);
-    disabledAllTaskToggleButton(isAllTaskDone);
-}
-
 const tasksPanelRender = () => {
     if (tasksArray.length) {
         tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
         <button class="tasksSection__button tasksSection__button--hide js-hideDoneTasks">${isDoneTasksHidden ? "Pokaż ukończone" : "Ukryj ukończone"}</button>
-        <button class="tasksSection__button tasksSection__button--toggleDone js-toggleAllTasks">Ukończ wszystkie</button>
+        <button class="tasksSection__button tasksSection__button--toggleDone js-toggleAllTasks" ${tasksArray.every(({ done }) => done) ? "disabled" : ""}>Ukończ wszystkie</button>
         <ul class="tasksSection__list js-tasksList"></ul>`;
     } else {
         tasksSectionElement.innerHTML = `<h2 class="tasksSection__title">Tasks list</h2>
@@ -94,7 +81,6 @@ const tasksPanelRender = () => {
     };
 
     bindPanelButtons();
-    checkAllTaskDone();
 }
 
 const tasksListRender = (list) => {

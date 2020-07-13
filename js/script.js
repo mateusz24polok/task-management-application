@@ -43,26 +43,9 @@ const toggleAllTasksDone = () => {
     tasksSectionRender();
 };
 
-const hideDoneTasks = () => {
-    isDoneTasksHidden = true;
-    const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
-    hideDoneTasksButton.textContent = "Pokaż ukończone";
-    tasksSectionRender();
-}
-
-const showDoneTasks = () => {
-    isDoneTasksHidden = false;
-    const hideDoneTasksButton = document.querySelector(".js-hideDoneTasks");
-    hideDoneTasksButton.textContent = "Ukryj ukończone";
-    tasksSectionRender();
-}
-
 const handleHideDoneTasksButton = () => {
-    if (!isDoneTasksHidden) {
-        hideDoneTasks();
-    } else {
-        showDoneTasks();
-    }
+    isDoneTasksHidden = !isDoneTasksHidden;
+    tasksSectionRender();
 }
 
 const bindTaskButtons = () => {

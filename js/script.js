@@ -83,10 +83,10 @@ const tasksPanelRender = () => {
     bindPanelButtons();
 }
 
-const tasksListRender = (list) => {
+const tasksListRender = () => {
     const tasksListElement = document.querySelector(".js-tasksList");
     tasksListElement.innerHTML = "";
-    list.forEach(taskObject => {
+    tasksArray.forEach(taskObject => {
         const taskElementHtml = `
         <li class="tasksSection__listItem ${isDoneTasksHidden && taskObject.done ? "tasksSection__listItem--hidden" : ""} js-taskElement">
             <button class="tasksSection__listItemButton tasksSection__listItemButton--done js-taskDone">${taskObject.done ? "✔" : ""}</button>
@@ -101,7 +101,7 @@ const tasksListRender = (list) => {
 
 const tasksSectionRender = () => {
     tasksPanelRender();
-    tasksListRender(tasksArray);
+    tasksListRender();
 }
 
 const clearTaskInput = () => {

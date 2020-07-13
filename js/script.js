@@ -17,17 +17,24 @@ const addNewTask = (taskText) => {
 };
 
 const removeTask = (taskIndex) => {
-    tasksArray = [...tasksArray.slice(0, taskIndex), ...tasksArray.slice(taskIndex + 1)]
+    tasksArray = [
+        ...tasksArray.slice(0, taskIndex),
+        ...tasksArray.slice(taskIndex + 1)
+    ];
     tasksSectionRender();
 };
 
 const toggleTaskDone = (taskIndex) => {
-    tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
+    tasksArray = [
+        ...tasksArray.slice(0, taskIndex),
+        { ...tasksArray[taskIndex], done: !tasksArray[taskIndex].done },
+        ...tasksArray.slice(taskIndex + 1)
+    ];
     tasksSectionRender();
 };
 
 const toggleAllTasksDone = () => {
-    tasksArray = tasksArray.map(({description}) => {
+    tasksArray = tasksArray.map(({ description }) => {
         return {
             description: description,
             done: true

@@ -27,8 +27,11 @@ const toggleTaskDone = (taskIndex) => {
 };
 
 const toggleAllTasksDone = () => {
-    tasksArray.map((task) => {
-        task.done = true;
+    tasksArray = tasksArray.map(({description}) => {
+        return {
+            description: description,
+            done: true
+        }
     });
     tasksSectionRender();
 };
@@ -85,7 +88,7 @@ const disabledAllTaskToggleButton = (isAllTaskDone) => {
 }
 
 const checkAllTaskDone = () => {
-    const isAllTaskDone = tasksArray.every(({done}) => done);
+    const isAllTaskDone = tasksArray.every(({ done }) => done);
     disabledAllTaskToggleButton(isAllTaskDone);
 }
 

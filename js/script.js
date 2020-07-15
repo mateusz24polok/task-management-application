@@ -13,7 +13,7 @@ const addNewTask = (taskText) => {
             done: false
         }];
     }
-    tasksSectionRender();
+    render();
 };
 
 const removeTask = (taskIndex) => {
@@ -21,7 +21,7 @@ const removeTask = (taskIndex) => {
         ...tasksArray.slice(0, taskIndex),
         ...tasksArray.slice(taskIndex + 1)
     ];
-    tasksSectionRender();
+    render();
 };
 
 const toggleTaskDone = (taskIndex) => {
@@ -30,7 +30,7 @@ const toggleTaskDone = (taskIndex) => {
         { ...tasksArray[taskIndex], done: !tasksArray[taskIndex].done },
         ...tasksArray.slice(taskIndex + 1)
     ];
-    tasksSectionRender();
+    render();
 };
 
 const toggleAllTasksDone = () => {
@@ -40,12 +40,12 @@ const toggleAllTasksDone = () => {
             done: true
         }
     });
-    tasksSectionRender();
+    render();
 };
 
 const handleHideDoneTasksButton = () => {
     isDoneTasksHidden = !isDoneTasksHidden;
-    tasksSectionRender();
+    render();
 }
 
 const bindTaskButtons = () => {
@@ -99,7 +99,7 @@ const tasksListRender = () => {
     bindTaskButtons();
 }
 
-const tasksSectionRender = () => {
+const render = () => {
     tasksPanelRender();
     tasksListRender();
 }
